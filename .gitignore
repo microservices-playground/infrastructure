@@ -1,3 +1,5 @@
 /ansible/roles/vendor/
 /ansible/roles/services/db_foodlove/files/foodlove.sql
 /machines/*/.vagrant/
+
+*.retry

@@ -1,5 +1,14 @@
 ---
 
-- name: Install git
-  apt:
-    name: git
+- name: Copy db dump to guest
+  copy:
+    src: files/foodlove.sql
+    dest: /tmp
+
+- name: Import the database dump
+  mysql_db:
+    name: foodlove
+    state: import
+    target: /tmp/foodlove.sql
+    login_user: foodlove
+    login_password: foodlove
