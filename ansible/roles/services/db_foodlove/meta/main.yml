@@ -5,9 +5,9 @@ dependencies:
   - role: geerlingguy.mysql
     become: yes
     mysql_databases:
-      - name: foodlove
+      - name: "{{ db_foodlove.db_name }}"
     mysql_users:
-      - name: foodlove
+      - name: "{{ db_foodlove.db_username }}"
         host: "%"
-        password: foodlove
-        priv: "foodlove.*:ALL"
+        password: "{{ db_foodlove.db_password }}"
+        priv: "{{ db_foodlove.db_name }}.*:ALL"

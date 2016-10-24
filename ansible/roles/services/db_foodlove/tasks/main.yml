@@ -7,8 +7,13 @@
 
 - name: Import the database dump
   mysql_db:
-    name: foodlove
+    name: "{{ db_foodlove.db_name }}"
     state: import
     target: /tmp/foodlove.sql
-    login_user: foodlove
-    login_password: foodlove
+    login_user: "{{ db_foodlove.db_username }}"
+    login_password: "{{ db_foodlove.db_password }}"
+
+- name: Remove db dump
+  file:
+    path: /tmp/foodlove.sql
+    state: absent

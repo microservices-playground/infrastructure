@@ -1,0 +1,13 @@
+---
+
+dependencies:
+
+  - role: geerlingguy.mysql
+    become: yes
+    mysql_databases:
+      - name: "{{ db_comments.db_name }}"
+    mysql_users:
+      - name: "{{ db_comments.db_username }}"
+        host: "%"
+        password: "{{ db_comments.db_password }}"
+        priv: "{{ db_comments.db_name }}.*:ALL"
