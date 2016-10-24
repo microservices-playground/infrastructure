@@ -1,0 +1,12 @@
+---
+
+dependencies:
+
+  - role: greendayonfire.mongodb
+    become: yes
+    mongodb_security_authorization: "enabled"
+    mongodb_users:
+      - name: "{{ db_activities.db_username }}"
+        password: "{{ db_activities.db_password }}"
+        roles: readWrite
+        database: "{{ db_activities.db_collection }}"

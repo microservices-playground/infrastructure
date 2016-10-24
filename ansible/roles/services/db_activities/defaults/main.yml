@@ -1,0 +1,6 @@
+---
+
+db_activities:
+  db_collection: activities
+  db_username: activities
+  db_password: activities
