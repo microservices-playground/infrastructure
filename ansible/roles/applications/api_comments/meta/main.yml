@@ -1,0 +1,12 @@
+---
+
+dependencies:
+
+  - role: jdauphant.nginx
+    become: yes
+    nginx_sites:
+      default:
+        - listen 80
+        - server_name _
+        - root "/srv/code"
+        - index index.html

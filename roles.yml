@@ -2,3 +2,4 @@
 
 - src: geerlingguy.mysql
 - src: greendayonfire.mongodb
+- src: jdauphant.nginx
