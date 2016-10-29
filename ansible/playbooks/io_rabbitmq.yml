@@ -1,0 +1,7 @@
+---
+
+- hosts: all
+
+  roles:
+    - role: io_rabbitmq
+      become: yes
