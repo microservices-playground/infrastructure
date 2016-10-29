@@ -1,5 +1,6 @@
 /ansible/roles/vendor/
 /ansible/roles/**/*.sql
-/machines/*/.vagrant/
+/**/.vagrant/
 
 *.retry
+*.pyc

@@ -1,5 +1,10 @@
 ---
 
-- name: Add php apt repository
-  apt_repository:
-    repo: ppa:ondrej/php
+- name: Create directories
+  file:
+    path: "/srv/{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+  with_items:
+    - log

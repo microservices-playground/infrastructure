@@ -1,6 +1,15 @@
 ---
 
 dependencies:
+  - role: geerlingguy.php
+    become: yes
+    php_enable_php_fpm: true
+    php_webserver_daemon: nginx
+    php_date_timezone: Europe/London
+    php_fpm_listen: /var/run/php7.0-fpm.sock
+    php_packages:
+      - php7.0-xdebug
+      - php7.0-pdo-mysql
 
   - role: jdauphant.nginx
     become: yes
@@ -9,20 +18,20 @@ dependencies:
         - listen 80
         - server_name _
         - root "/srv/code/web"
-        - error_log /srv/log/nginx-error.log;
-        - access_log /srv/log/nginx-access.log;
+        - error_log /srv/log/nginx-error.log
+        - access_log /srv/log/nginx-access.log
         - location / {
             try_files $uri /app.php$is_args$args;
           }
         - location ~ ^/(app_dev|config)\.php(/|$) {
-            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_pass unix:/var/run/php7.0-fpm.sock;
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
             fastcgi_param DOCUMENT_ROOT $realpath_root;
           }
         - location ~ ^/app\.php(/|$) {
-            fastcgi_pass unix:/var/run/php5-fpm.sock;
+            fastcgi_pass unix:/var/run/php7.0-fpm.sock;
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
@@ -32,7 +41,3 @@ dependencies:
         - location ~ \.php$ {
             return 404;
           }
-
-  - role: chusiang.php7
-    become: yes
-    php_timezone: Europe/London
