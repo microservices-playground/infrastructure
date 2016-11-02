@@ -87,4 +87,22 @@ Vagrant.configure("2") do |config|
     end
   end
 
+  config.vm.define "api_activities" do |api_comments|
+    api_comments.vm.hostname = "api-activities"
+    api_comments.vm.network "private_network", ip: "192.168.100.101"
+    api_comments.vm.network "forwarded_port", guest: 5000, host: 5050
+
+    api_comments.vm.synced_folder "~/Repositories/foodlove/api-activities", "/srv/api_activities/code", type: "nfs"
+
+    api_comments.vm.provider "virtualbox" do |v|
+      v.memory = 768
+      v.cpus = 1
+    end
+
+    api_comments.vm.provision "ansible_local" do |ansible|
+      ansible.playbook = "playbooks/api_activities.yml"
+      ansible.provisioning_path = "/vagrant/ansible"
+    end
+  end
+
 end
