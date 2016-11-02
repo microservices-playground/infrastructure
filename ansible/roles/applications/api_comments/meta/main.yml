@@ -8,6 +8,7 @@ dependencies:
     php_date_timezone: Europe/London
     php_fpm_listen: /var/run/php7.0-fpm.sock
     php_packages:
+      - php7.0-bcmath
       - php7.0-common
       - php7.0-fpm
       - php7.0-xdebug

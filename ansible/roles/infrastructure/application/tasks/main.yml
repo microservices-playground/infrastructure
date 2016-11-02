@@ -1,0 +1,29 @@
+---
+
+- name: Create group for applicaiton
+  group:
+    name: "{{ application_name }}"
+
+- name: Create system user for application
+  user:
+    name: "{{ application_name }}"
+    group: "{{ application_name }}"
+    home: "/srv/{{ application_name }}"
+    shell: /bin/bash
+
+- name: Ensure home directory is owned by user
+  file:
+    path: "/srv/{{ application_name }}"
+    owner: "{{ application_name }}"
+    group: "{{ application_name }}"
+
+- name: Create directories
+  file:
+    path: "/srv/{{ application_name }}/{{ item }}"
+    state: directory
+    owner: "{{ application_name }}"
+    group: "{{ application_name }}"
+  with_items:
+    - log
+    - run
+    - tmp

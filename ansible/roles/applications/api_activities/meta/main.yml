@@ -1,0 +1,21 @@
+---
+
+dependencies:
+  - role: application
+    application_name: "{{ api_activities_application_name }}"
+
+  - role: tersmitten.supervisor
+    supervisor_inet_http_server_username: admin
+    supervisor_inet_http_server_password: admin
+    supervisor_programs_present:
+      api_activities:
+        command: "python run.py; sleep 10"
+        numprocs: 1
+        directory: "{{ api_activities_root }}/code"
+        autostart: true
+        autorestart: true
+        startretries: 3
+        process_name: "%(program_name)s"
+        stdout_logfile: "{{ api_activities_root }}/log/api_activities-access.log"
+        stderr_logfile: "{{ api_activities_root }}/log/api_activities-error.log"
+        user: "{{ api_activities_application_name }}"

@@ -1,0 +1,16 @@
+---
+
+- hosts: all
+
+  pre_tasks:
+    - name: Install dependencies
+      become: true
+      apt:
+        name: "{{ item }}"
+      with_items:
+        - python-pip
+        - git
+
+  roles:
+    - role: api_activities
+      become: yes
