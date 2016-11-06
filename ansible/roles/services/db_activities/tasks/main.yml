@@ -1,1 +1,6 @@
 ---
+
+- name: Open port in firewall
+  ufw:
+    rule: allow
+    port: "{{ mongodb_net_port }}"

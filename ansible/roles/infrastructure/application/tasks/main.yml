@@ -27,3 +27,28 @@
     - log
     - run
     - tmp
+    - .ssh
+
+- name: Copy ssh keys
+  copy:
+    src: "{{ item.file }}"
+    dest: "/srv/{{ application_name }}/.ssh"
+    owner: "{{ application_name }}"
+    group: "{{ application_name }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { file: id_rsa, mode: "0600"}
+    - { file: id_rsa.pub, mode: "0644" }
+
+- name: Check if code directory exists
+  stat:
+    path: "/srv/{{ application_name }}/code"
+  register: code_exists
+
+- name: Create code directory if it does not exist
+  file:
+    path: "/srv/{{ application_name }}/code"
+    state: directory
+    owner: "{{ application_name }}"
+    group: "{{ application_name }}"
+  when: code_exists.stat.isdir is not defined

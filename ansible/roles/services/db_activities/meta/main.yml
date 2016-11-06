@@ -5,6 +5,7 @@ dependencies:
   - role: greendayonfire.mongodb
     become: yes
     mongodb_security_authorization: "enabled"
+    mongodb_net_bindip: 0.0.0.0
     mongodb_users:
       - name: "{{ db_activities.db_username }}"
         password: "{{ db_activities.db_password }}"

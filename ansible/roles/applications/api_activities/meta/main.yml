@@ -9,7 +9,7 @@ dependencies:
     supervisor_inet_http_server_password: admin
     supervisor_programs_present:
       api_activities:
-        command: "python run.py; sleep 10"
+        command: "python {{ api_activities_root }}/code/run.py"
         numprocs: 1
         directory: "{{ api_activities_root }}/code"
         autostart: true

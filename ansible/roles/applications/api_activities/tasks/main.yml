@@ -15,9 +15,21 @@
     repo: git@github.com:microservices-playground/api-activities.git
     dest: "{{ api_activities_root }}/code"
     accept_hostkey: yes
+    version: master
 
 - name: Configure application
   become_user: "{{ api_activities_application_name }}"
   template:
     src: config.yml.j2
-    dist: "{{ api_activities_root }}/code"
+    dest: "{{ api_activities_root }}/code/config.yml"
+    mode: "0644"
+
+- name: Open port for application
+  ufw:
+    rule: allow
+    port: "{{ api_activities_port }}"
+
+- name: Restart application
+  supervisorctl:
+    name: "{{ api_activities_application_name }}"
+    state: restarted
