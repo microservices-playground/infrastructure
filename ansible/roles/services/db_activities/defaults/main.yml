@@ -1,6 +1,7 @@
 ---
 
 db_activities:
-  db_collection: activities
-  db_username: activities
-  db_password: activities
+  port: 27017
+  collection: activities
+  username: activities
+  password: activities

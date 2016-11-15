@@ -1,0 +1,7 @@
+---
+
+db_activities_host: 192.168.100.4
+db_activities_port: 27017
+db_activities_database: activities
+db_activities_username: activities
+db_activities_password: activities

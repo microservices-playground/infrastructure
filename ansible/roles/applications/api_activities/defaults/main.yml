@@ -6,3 +6,10 @@ api_activities_port: 5000
 api_activities_debug:
   dev: true
   prod: false
+
+api_activities_db:
+  host: localhost
+  port: 27017
+  database: activities
+  username: activities
+  password: activities

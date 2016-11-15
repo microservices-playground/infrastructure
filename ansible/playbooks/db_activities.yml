@@ -2,6 +2,14 @@
 
 - hosts: all
 
+  vars_files:
+    - "../vars/common.yml"
+
   roles:
     - role: db_activities
       become: yes
+      db_activities:
+        port: "{{ db_activities_port }}"
+        collection: "{{ db_activities_database }}"
+        username: "{{ db_activities_username }}"
+        password: "{{ db_activities_password }}"

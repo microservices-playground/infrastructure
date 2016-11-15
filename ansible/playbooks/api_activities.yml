@@ -2,6 +2,9 @@
 
 - hosts: all
 
+  vars_files:
+    - "../vars/common.yml"
+
   pre_tasks:
     - name: Install dependencies
       become: true
@@ -14,3 +17,9 @@
   roles:
     - role: api_activities
       become: yes
+      api_activities_db:
+        host: "{{ db_activities_host }}"
+        port: "{{ db_activities_port }}"
+        database: "{{ db_activities_database }}"
+        username: "{{ db_activities_username }}"
+        password: "{{ db_activities_password }}"
