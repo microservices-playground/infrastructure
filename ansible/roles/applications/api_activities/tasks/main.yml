@@ -1,5 +1,12 @@
 ---
 
+- name: Install system dependencies
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - python-dev
+    - libmysqlclient-dev
+
 - name: Install python dependencies
   pip:
     name: "{{ item.name }}"
@@ -8,6 +15,8 @@
     - { name: flask, version: 0.11.1 }
     - { name: flask_cors, version: 3.0.2 }
     - { name: mongoalchemy, version: 0.21 }
+    - { name: MySQL-python, version: 1.2.5 }
+    - { name: progressbar, version: 2.3 }
 
 - name: Clone git repository
   become_user: "{{ api_activities_application_name }}"
@@ -23,6 +32,12 @@
     src: config.yml.j2
     dest: "{{ api_activities_root }}/code/config.yml"
     mode: "0644"
+
+- name: Migrate data from foodlove database
+  become_user: "{{ api_activities_application_name }}"
+  make:
+    chdir: "{{ api_activities_root }}/code"
+    target: db-data-copy
 
 - name: Open port for application
   ufw:
