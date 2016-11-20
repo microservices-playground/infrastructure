@@ -1,11 +1,13 @@
+{{ ansible_managed }}
+
 app:
   port: {{ api_activities_port }}
   debug: {{ api_activities_debug[env] }}
 mysql:
-  host: 192.168.100.2
-  database: foodlove
-  username: foodlove
-  password: foodlove
+  host: {{ db_foodlove_host }}
+  database: {{ db_foodlove_database }}
+  username: {{ db_foodlove_username }}
+  password: {{ db_foodlove_password }}
 mongo:
   host: "mongodb://{{ api_activities_db.username }}:{{ api_activities_db.password }}@{{ api_activities_db.host }}:{{ api_activities_db.port }}/{{ api_activities_db.database }}?authMechanism=SCRAM-SHA-1"
   database: {{ api_activities_db.database }}

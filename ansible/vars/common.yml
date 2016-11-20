@@ -1,5 +1,17 @@
 ---
 
+db_foodlove_host: 192.168.100.2
+db_foodlove_port: 3306
+db_foodlove_database: foodlove
+db_foodlove_username: foodlove
+db_foodlove_password: foodlove
+
+db_comments_host: 192.168.100.3
+db_comments_port: 3306
+db_comments_database: comments
+db_comments_username: comments
+db_comments_password: comments
+
 db_activities_host: 192.168.100.4
 db_activities_port: 27017
 db_activities_database: activities

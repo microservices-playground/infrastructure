@@ -1,10 +1,28 @@
 ---
 
-- name: Create directories
-  file:
-    path: "/srv/{{ item }}"
-    state: directory
-    owner: www-data
-    group: www-data
-  with_items:
-    - log
+- name: Clone git repository
+  become_user: "{{ api_comments_application_name }}"
+  git:
+    repo: git@github.com:microservices-playground/api-comments.git
+    dest: "{{ api_comments_root }}/code"
+    accept_hostkey: yes
+    version: master
+
+- name: Configure application
+  become_user: "{{ api_comments_application_name }}"
+  template:
+    src: parameters.yml.j2
+    dest: "{{ api_comments_root }}/code/app/config/parameters.yml"
+    mode: "0644"
+
+- name: Install dependencies
+  become_user: "{{ api_comments_application_name }}"
+  make:
+    chdir: "{{ api_comments_root }}/code"
+    target: install
+
+- name: Migrate data from foodlove database
+  become_user: "{{ api_comments_application_name }}"
+  make:
+    chdir: "{{ api_comments_root }}/code"
+    target: db-rebuild

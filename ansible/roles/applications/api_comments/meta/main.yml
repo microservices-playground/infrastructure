@@ -1,21 +1,31 @@
 ---
 
 dependencies:
+  - role: application
+    application_name: "{{ api_comments_application_name }}"
+
   - role: geerlingguy.php
     become: yes
     php_enable_php_fpm: true
+    php_fpm_pool_user: "{{ api_comments_application_name }}"
+    php_fpm_pool_group: "{{ api_comments_application_name }}"
+    php_fpm_pm_max_children: 100
+    php_fpm_pm_start_servers: 3
+    php_fpm_pm_min_spare_servers: 2
+    php_fpm_pm_max_spare_servers: 4
     php_webserver_daemon: nginx
     php_date_timezone: Europe/London
-    php_fpm_listen: /var/run/php7.0-fpm.sock
+    php_fpm_listen: "{{ api_comments_root }}/run/api_comments-fpm.sock"
     php_packages:
+      - php7.0-apcu
       - php7.0-bcmath
       - php7.0-common
+      - php7.0-curl
       - php7.0-fpm
       - php7.0-xdebug
       - php7.0-intl
-      - php7.0-mbstring
-      - php7.0-curl
       - php7.0-json
+      - php7.0-mbstring
       - php7.0-mcrypt
       - php7.0-mysql
       - php7.0-xml
@@ -24,23 +34,23 @@ dependencies:
     become: yes
     nginx_sites:
       default:
-        - listen 80
+        - listen {{ api_comments_port }}
         - server_name _
-        - root "/srv/code/web"
-        - error_log /srv/log/nginx-error.log
-        - access_log /srv/log/nginx-access.log
+        - root "{{ api_comments_root }}/code/web"
+        - error_log "{{ api_comments_root }}/log/nginx-error.log"
+        - access_log "{{ api_comments_root }}/log/nginx-access.log"
         - location / {
             try_files $uri /app.php$is_args$args;
           }
         - location ~ ^/(app_dev|config)\.php(/|$) {
-            fastcgi_pass unix:/var/run/php7.0-fpm.sock;
+            fastcgi_pass unix:{{ api_comments_root }}/run/api_comments-fpm.sock;
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
             fastcgi_param DOCUMENT_ROOT $realpath_root;
           }
         - location ~ ^/app\.php(/|$) {
-            fastcgi_pass unix:/var/run/php7.0-fpm.sock;
+            fastcgi_pass unix:{{ api_comments_root }}/run/api_comments-fpm.sock;
             fastcgi_split_path_info ^(.+\.php)(/.*)$;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;

@@ -1,0 +1,15 @@
+---
+
+api_comments_application_name: api_comments
+api_comments_root: /srv/api_comments
+api_comments_port: 80
+api_comments_debug:
+  dev: true
+  prod: false
+
+api_comments_db:
+  host: localhost
+  port: 3306
+  database: comments
+  username: comments
+  password: comments
