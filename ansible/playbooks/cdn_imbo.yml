@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+
+  pre_tasks:
+    - name: Add php apt repository
+      become: true
+      apt_repository:
+        repo: ppa:ondrej/php
+
+  roles:
+    - role: cdn_imbo
+      become: yes

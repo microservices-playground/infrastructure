@@ -1,0 +1,5 @@
+---
+
+cdn_imbo_application_name: cdn_imbo
+cdn_imbo_root: /srv/cdn_imbo
+cdn_imbo_port: 80
