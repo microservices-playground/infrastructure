@@ -30,6 +30,7 @@ dependencies:
       - php7.0-mysql
       - php7.0-xml
       - php-mongodb
+      - php-xdebug
 
   - role: jdauphant.nginx
     become: yes
