@@ -14,31 +14,21 @@ dependencies:
     php_fpm_pm_min_spare_servers: 3
     php_fpm_pm_max_spare_servers: 7
     php_webserver_daemon: nginx
-    php_fpm_daemon: php5.6-fpm
-    php_fpm_conf_path: /etc/php/5.6/fpm
-    php_fpm_pool_conf_path: /etc/php/5.6/fpm/pool.d/www.conf
     php_date_timezone: Europe/London
     php_fpm_listen: "{{ cdn_imbo_root }}/run/cdn_imbo-fpm.sock"
-    php_conf_paths:
-      - /etc/php/5.6/fpm
-      - /etc/php/5.6/apache2
-      - /etc/php/5.6/cli
-    php_extension_conf_paths:
-      - /etc/php/5.6/fpm/conf.d
-      - /etc/php/5.6/apache2/conf.d
-      - /etc/php/5.6/cli/conf.d
     php_packages:
-      - php5.6-bcmath
-      - php5.6-common
-      - php5.6-curl
-      - php5.6-fpm
-      - php5.6-imagick
-      - php5.6-intl
-      - php5.6-json
-      - php5.6-mbstring
-      - php5.6-mcrypt
-      - php5.6-mysql
-      - php5.6-xml
+      - php7.0-apcu
+      - php7.0-bcmath
+      - php7.0-common
+      - php7.0-curl
+      - php7.0-fpm
+      - php7.0-imagick
+      - php7.0-intl
+      - php7.0-json
+      - php7.0-mbstring
+      - php7.0-mcrypt
+      - php7.0-mysql
+      - php7.0-xml
       - php-mongodb
 
   - role: jdauphant.nginx
@@ -52,11 +42,11 @@ dependencies:
         - error_log "{{ cdn_imbo_root }}/log/nginx-error.log"
         - access_log "{{ cdn_imbo_root }}/log/nginx-access.log"
         - location / {
-            try_files $uri $uri/ /index.php?$args;
-            location ~ \.php$ {
-                fastcgi_pass unix:{{ cdn_imbo_root }}/run/cdn_imbo-fpm.sock;
-                fastcgi_index index.php;
-                fastcgi_param SCRIPT_FILENAME {{ cdn_imbo_root }}/vendor/imbo/imbo/public/index.php;
-                include fastcgi_params;
-            }
+              try_files $uri $uri/ /index.php?$args;
+              location ~ \.php$ {
+                  fastcgi_pass unix:{{ cdn_imbo_root }}/run/cdn_imbo-fpm.sock;
+                  fastcgi_index index.php;
+                  fastcgi_param SCRIPT_FILENAME {{ cdn_imbo_root }}/vendor/imbo/imbo/public/index.php;
+                  include fastcgi_params;
+              }
           }

@@ -1,5 +1,11 @@
 ---
 
+- name: Create storage directory
+  become_user: "{{ cdn_imbo_application_name }}"
+  file:
+    path: "{{ cdn_imbo_root }}/storage"
+    state: directory
+
 - name: Clone git repository
   become_user: "{{ cdn_imbo_application_name }}"
   git:

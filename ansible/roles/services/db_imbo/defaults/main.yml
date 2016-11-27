@@ -1,0 +1,7 @@
+---
+
+db_imbo:
+  port: 27017
+  collection: imbo
+  username: imbo
+  password: imbo

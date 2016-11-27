@@ -1,0 +1,15 @@
+---
+
+- hosts: all
+
+  vars_files:
+    - "../vars/common.yml"
+
+  roles:
+    - role: db_imbo
+      become: yes
+      db_imbo:
+        port: "{{ db_imbo_port }}"
+        collection: "{{ db_imbo_database }}"
+        username: "{{ db_imbo_username }}"
+        password: "{{ db_imbo_password }}"
