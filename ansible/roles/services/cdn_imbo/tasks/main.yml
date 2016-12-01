@@ -19,3 +19,14 @@
   make:
     chdir: "{{ cdn_imbo_root }}/code"
     target: install
+
+- name: Ensure avatars temp directory was removed
+  file:
+    path: /tmp/avatars
+    state: absent
+
+- name: Upload avatars to temp directory
+  become_user: "{{ cdn_imbo_application_name }}"
+  unarchive:
+    src: files/avatars.tar.gz
+    dest: /tmp
